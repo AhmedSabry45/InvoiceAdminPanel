@@ -1,0 +1,75 @@
+﻿@model ArmyTechTaskApp.Models.InvoiceHeader
+
+@{
+    ViewData["Title"] = "Details";
+    double sum = 0;
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Invoicedate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Invoicedate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Branch)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Branch.BranchName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cashier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cashier.CashierName)
+        </dd>
+    </dl>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>item Name</th>
+        <th>item Count</th>
+        <th>item Price</th>
+        <th>item total</th>
+        <th>links</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in (List<InvoiceDetail>)ViewBag.InvoiceDetails)
+    {
+        sum += item.ItemPrice * item.ItemCount;
+        <tr>
+            <td>@item.ItemName</td>
+            <td>@item.ItemCount</td>
+            <td>@item.ItemPrice</td>
+            <td>@(item.ItemPrice*item.ItemCount)</td>
+            <td>
+                <a asp-action="Edit" asp-controller="InvoiceDetails" class="btn btn-outline-success rounded-pill " asp-route-id="@item.Id">Edit</a> |
+              
+                <a asp-action="Delete" asp-controller="InvoiceDetails" class="btn btn-outline-danger rounded-pill "asp-route-id="@item.Id">Delete</a>
+            </td>
+
+        </tr>
+    }
+  
+    </tbody>
+</table>
+<p>total invoice :   @sum</p>
+      
+<br />
+<div>
+    <a asp-action="Index"class="btn btn-dark">Back to List</a>
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ArmyTechTaskApp.Models.InvoiceDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Items</h1>
+<link rel="stylesheet" href=" https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table id="tableIndex" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceHeader)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceHeader.Id)
+            </td>
+            <td>
+                <a asp-action="Edit"  class="btn btn-outline-success rounded-pill" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details"  class="btn btn-outline-info rounded-pill" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete"  class="btn btn-outline-danger rounded-pill" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<br />
+<div>
+    <a asp-action="Index" asp-controller="InvoiceHeaders" class="btn btn-dark">Back to List</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+    $('#myTable').DataTable();
+             });
+        </script>

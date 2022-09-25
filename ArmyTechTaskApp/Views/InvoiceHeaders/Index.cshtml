@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ArmyTechTaskApp.Models.InvoiceHeader>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Invoices</h1>
+<link rel="stylesheet" href=" https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+<p>
+    <a asp-action="Create" class="btn btn-primary">New Customer</a>|
+     <a asp-action="Create" class="btn btn-primary"  method="post" asp-controller="InvoiceDetails">New Invoice </a>
+</p>
+<table id="tableIndex" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoicedate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cashier)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Invoicedate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch.BranchName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cashier.CashierName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-success rounded-pill">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary rounded-pill">Details</a> |
+
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger rounded-pill">Delete</a>|
+                 <a asp-action="Create" asp-controller="InvoiceDetails" asp-route-id="@item.Id"class="btn btn-outline-info rounded-pill">Add Invoice</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+    $('#myTable').DataTable();
+             });
+        </script>
+
+ 
